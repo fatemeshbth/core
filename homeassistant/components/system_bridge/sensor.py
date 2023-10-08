@@ -38,7 +38,10 @@ ATTR_MOUNT: Final = "mount"
 ATTR_SIZE: Final = "size"
 ATTR_TYPE: Final = "type"
 ATTR_USED: Final = "used"
-
+mdi_speedometer = "mdi:speedometer"
+mdi_memory = "mdi:memory"
+mdi_percent = "mdi:percent"
+mdi_monitor = "mdi:monitor"
 PIXELS: Final = "px"
 
 
@@ -159,7 +162,7 @@ BASE_SENSOR_TYPES: tuple[SystemBridgeSensorEntityDescription, ...] = (
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=UnitOfFrequency.GIGAHERTZ,
         device_class=SensorDeviceClass.FREQUENCY,
-        icon="mdi:speedometer",
+        icon= mdi_speedometer,
         value=cpu_speed,
     ),
     SystemBridgeSensorEntityDescription(
@@ -192,7 +195,7 @@ BASE_SENSOR_TYPES: tuple[SystemBridgeSensorEntityDescription, ...] = (
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=UnitOfInformation.GIGABYTES,
         device_class=SensorDeviceClass.DATA_SIZE,
-        icon="mdi:memory",
+        icon= mdi_memory,
         value=memory_free,
     ),
     SystemBridgeSensorEntityDescription(
@@ -200,7 +203,7 @@ BASE_SENSOR_TYPES: tuple[SystemBridgeSensorEntityDescription, ...] = (
         translation_key="memory_used",
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=PERCENTAGE,
-        icon="mdi:memory",
+        icon=mdi_memory,
         value=lambda data: data.memory.virtual_percent,
     ),
     SystemBridgeSensorEntityDescription(
@@ -210,7 +213,7 @@ BASE_SENSOR_TYPES: tuple[SystemBridgeSensorEntityDescription, ...] = (
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=UnitOfInformation.GIGABYTES,
         device_class=SensorDeviceClass.DATA_SIZE,
-        icon="mdi:memory",
+        icon= mdi_memory,
         value=memory_used,
     ),
     SystemBridgeSensorEntityDescription(
@@ -224,7 +227,7 @@ BASE_SENSOR_TYPES: tuple[SystemBridgeSensorEntityDescription, ...] = (
         translation_key="load",
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=PERCENTAGE,
-        icon="mdi:percent",
+        icon= mdi_percent,
         value=lambda data: data.cpu.usage,
     ),
     SystemBridgeSensorEntityDescription(
@@ -321,7 +324,7 @@ async def async_setup_entry(
                 key="displays_connected",
                 translation_key="displays_connected",
                 state_class=SensorStateClass.MEASUREMENT,
-                icon="mdi:monitor",
+                icon= mdi_monitor,
                 value=lambda _, count=display_count: count,
             ),
             entry.data[CONF_PORT],
@@ -338,7 +341,7 @@ async def async_setup_entry(
                     name=f"Display {display['name']} resolution x",
                     state_class=SensorStateClass.MEASUREMENT,
                     native_unit_of_measurement=PIXELS,
-                    icon="mdi:monitor",
+                    icon= mdi_monitor,
                     value=lambda data, k=display["key"]: getattr(
                         data.display, f"{k}_resolution_horizontal", None
                     ),
@@ -352,7 +355,7 @@ async def async_setup_entry(
                     name=f"Display {display['name']} resolution y",
                     state_class=SensorStateClass.MEASUREMENT,
                     native_unit_of_measurement=PIXELS,
-                    icon="mdi:monitor",
+                    icon= mdi_monitor,
                     value=lambda data, k=display["key"]: getattr(
                         data.display, f"{k}_resolution_vertical", None
                     ),
@@ -367,7 +370,7 @@ async def async_setup_entry(
                     state_class=SensorStateClass.MEASUREMENT,
                     native_unit_of_measurement=UnitOfFrequency.HERTZ,
                     device_class=SensorDeviceClass.FREQUENCY,
-                    icon="mdi:monitor",
+                    icon= mdi_monitor,
                     value=lambda data, k=display["key"]: getattr(
                         data.display, f"{k}_refresh_rate", None
                     ),
@@ -399,7 +402,7 @@ async def async_setup_entry(
                     state_class=SensorStateClass.MEASUREMENT,
                     native_unit_of_measurement=UnitOfFrequency.MEGAHERTZ,
                     device_class=SensorDeviceClass.FREQUENCY,
-                    icon="mdi:speedometer",
+                    icon= mdi_speedometer,
                     value=lambda data, k=gpu["key"]: gpu_core_clock_speed(data, k),
                 ),
                 entry.data[CONF_PORT],
@@ -413,7 +416,7 @@ async def async_setup_entry(
                     state_class=SensorStateClass.MEASUREMENT,
                     native_unit_of_measurement=UnitOfFrequency.MEGAHERTZ,
                     device_class=SensorDeviceClass.FREQUENCY,
-                    icon="mdi:speedometer",
+                    icon= mdi_speedometer,
                     value=lambda data, k=gpu["key"]: gpu_memory_clock_speed(data, k),
                 ),
                 entry.data[CONF_PORT],
@@ -426,7 +429,7 @@ async def async_setup_entry(
                     state_class=SensorStateClass.MEASUREMENT,
                     native_unit_of_measurement=UnitOfInformation.GIGABYTES,
                     device_class=SensorDeviceClass.DATA_SIZE,
-                    icon="mdi:memory",
+                    icon= mdi_memory,
                     value=lambda data, k=gpu["key"]: gpu_memory_free(data, k),
                 ),
                 entry.data[CONF_PORT],
@@ -438,7 +441,7 @@ async def async_setup_entry(
                     name=f"{gpu['name']} memory used %",
                     state_class=SensorStateClass.MEASUREMENT,
                     native_unit_of_measurement=PERCENTAGE,
-                    icon="mdi:memory",
+                    icon= mdi_memory,
                     value=lambda data, k=gpu["key"]: gpu_memory_used_percentage(
                         data, k
                     ),
@@ -454,7 +457,7 @@ async def async_setup_entry(
                     state_class=SensorStateClass.MEASUREMENT,
                     native_unit_of_measurement=UnitOfInformation.GIGABYTES,
                     device_class=SensorDeviceClass.DATA_SIZE,
-                    icon="mdi:memory",
+                    icon= mdi_memory,
                     value=lambda data, k=gpu["key"]: gpu_memory_used(data, k),
                 ),
                 entry.data[CONF_PORT],
@@ -511,7 +514,7 @@ async def async_setup_entry(
                     name=f"{gpu['name']} usage %",
                     state_class=SensorStateClass.MEASUREMENT,
                     native_unit_of_measurement=PERCENTAGE,
-                    icon="mdi:percent",
+                    icon= mdi_percent,
                     value=lambda data, k=gpu["key"]: getattr(
                         data.gpu, f"{k}_core_load", None
                     ),
@@ -530,7 +533,7 @@ async def async_setup_entry(
                     entity_registry_enabled_default=False,
                     state_class=SensorStateClass.MEASUREMENT,
                     native_unit_of_measurement=PERCENTAGE,
-                    icon="mdi:percent",
+                    icon= mdi_percent,
                     value=lambda data, k=index: getattr(data.cpu, f"usage_{k}", None),
                 ),
                 entry.data[CONF_PORT],
