@@ -42,6 +42,7 @@ FACEBOX_NAME = "name"
 CLASSIFIER = "facebox"
 DATA_FACEBOX = "facebox_classifiers"
 FILE_PATH = "file_path"
+authentication_error = "AuthenticationError on %s"
 
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
@@ -70,7 +71,7 @@ def check_box_health(url, username, password):
     try:
         response = requests.get(url, **kwargs, timeout=10)
         if response.status_code == HTTPStatus.UNAUTHORIZED:
-            _LOGGER.error("AuthenticationError on %s", CLASSIFIER)
+            _LOGGER.error( authentication_error, CLASSIFIER)
             return None
         if response.status_code == HTTPStatus.OK:
             return response.json()["hostname"]
@@ -120,7 +121,7 @@ def post_image(url, image, username, password):
             url, json={"base64": encode_image(image)}, timeout=10, **kwargs
         )
         if response.status_code == HTTPStatus.UNAUTHORIZED:
-            _LOGGER.error("AuthenticationError on %s", CLASSIFIER)
+            _LOGGER.error(authentication_error, CLASSIFIER)
             return None
         return response
     except requests.exceptions.ConnectionError:
@@ -143,7 +144,7 @@ def teach_file(url, name, file_path, username, password):
                 **kwargs,
             )
         if response.status_code == HTTPStatus.UNAUTHORIZED:
-            _LOGGER.error("AuthenticationError on %s", CLASSIFIER)
+            _LOGGER.error(authentication_error, CLASSIFIER)
         elif response.status_code == HTTPStatus.BAD_REQUEST:
             _LOGGER.error(
                 "%s teaching of file %s failed with message:%s",
