@@ -281,6 +281,7 @@ class DataManager:
         self.async_stop_polling_webhook_subscriptions()
 
         def empty_listener() -> None:
+            """This listener is intentionally empty for future use and have flexibility to add custom functionality ."""
             pass
 
         self._cancel_subscription_update = (
