@@ -29,8 +29,7 @@ _ZABBIX_TRIGGER_SCHEMA = vol.Schema(
     }
 )
 
-# SCAN_INTERVAL = 30
-#
+
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {vol.Required(_CONF_TRIGGERS): vol.Any(_ZABBIX_TRIGGER_SCHEMA, None)}
 )
