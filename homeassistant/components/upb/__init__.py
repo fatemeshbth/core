@@ -94,6 +94,7 @@ class UpbEntity(Entity):
         return self._upb.is_connected()
 
     def _element_changed(self, element, changeset):
+        # This method is intentionally left empty as it is not required for the current implementation.
         pass
 
     @callback
